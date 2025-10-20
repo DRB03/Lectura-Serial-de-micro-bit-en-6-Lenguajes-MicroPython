@@ -1,4 +1,3 @@
-<img width="513" height="109" alt="image" src="https://gist.github.com/user-attachments/assets/873b3501-0dd1-4f55-8f71-e4834d0daf23" />
 
 
 # 🔧 Práctica Integral — Lectura Serial de micro:bit en 6 Lenguajes + MicroPython
