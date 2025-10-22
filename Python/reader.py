@@ -5,7 +5,7 @@ import time
 import math
 
 # !!! CAMBIA "COM3" por tu puerto serial !!!
-SERIAL_PORT = 'COM15'
+SERIAL_PORT = 'COM5'
 BAUD_RATE = 115200 
 
 def check_alerts(data):
@@ -48,3 +48,4 @@ except serial.SerialException as e:
 except KeyboardInterrupt:
     print("\nDesconectando...")
     ser.close()
+
