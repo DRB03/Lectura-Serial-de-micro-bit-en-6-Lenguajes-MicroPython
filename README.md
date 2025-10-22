@@ -23,7 +23,6 @@ El equipo de mantenimiento (los alumnos) debe **probar, comparar y depurar** lec
 * 🐍 Python
 * 💻 C#
 * ⚙️ C++
-* 🦀 Rust
 * 🟢 Node.js
 * 🐹 Go
 
@@ -33,15 +32,15 @@ El objetivo es validar que todos interpreten los mismos datos, detecten alertas 
 
 ## Tabla Comparativa de Lectores Seriales (Windows)
 
-| Característica | 🐍 Python | 🟢 Node.js | 💻 C# | ⚙️ C++ |
-| :--- | :--- | :--- | :--- | :--- |
-| **Biblioteca Serial** | `pyserial` (externa) | `serialport` (externa) | `System.IO.Ports` (NuGet) | **Win32 API** (Nativa de OS) |
-| **Instalación** | `pip install pyserial` | `npm install serialport` | `dotnet add package ...` | Ninguna (incluida en Windows SDK) |
-| **Biblioteca JSON** | `json` (nativa) | `JSON` (nativo) | `System.Text.Json` (nativa) | **nlohmann/json** (externa) |
-| **Manejo de Lectura** | Síncrono (`ser.readline()`) | Asíncrono (eventos) | Síncrono (`_serialPort.ReadLine()`) | Síncrono (`ReadFile()`) + buffer manual |
-| **Complejidad de código** | Baja | Baja-Media | Media | **Muy Alta** |
-| **Manejo de Errores** | `try...except` | Callbacks/`try...catch` | `try...catch` | Códigos de error de Win32 + `try...catch` |
-
+| Característica | 🐍 Python | 🟢 Node.js | 💻 C# | 🐹 Go | ⚙️ C++ |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Biblioteca Serial** | `pyserial` (externa) | `serialport` (externa) | `System.IO.Ports` (NuGet) | **`go.bug.st/serial`** (externa) | **Boost.Asio** o **Win32 API** |
+| **Instalación Serial** | `pip install pyserial` | `npm install serialport` | `dotnet add package ...` | `go get go.bug.st/serial` | Depende (Ej: `vcpkg install boost-asio`) |
+| **Biblioteca JSON** | `json` (nativa) | `JSON` (nativo) | `System.Text.Json` (nativa) | **`encoding/json`** (nativa) | **nlohmann/json** (externa) |
+| **Manejo de Lectura** | Síncrono (`ser.readline()`) | Asíncrono (eventos) | Síncrono (`_serialPort.ReadLine()`) | Síncrono (`bufio.Scanner`) | Síncrono/Asíncrono (buffer manual) |
+| **Complejidad de código** | **Baja** | Baja-Media | Media | Media | **Muy Alta** |
+| **Manejo de Errores** | `try...except` específico | Callbacks/`try...catch` | `try...catch` específico | **Manejo de `error` explícito** (Go Idiomático) | Códigos de error/Excepciones |
+| **Ejecución/Compilación** | Interpretado (Lento) | JIT (Rápido) | JIT (Rápido) | **Compilado a nativo** (Rápido) | **Compilado a nativo** (Máxima velocidad) |
 ---
 
 ### 1. ¿Qué lenguaje resultó más sencillo para manejar el puerto serial?
