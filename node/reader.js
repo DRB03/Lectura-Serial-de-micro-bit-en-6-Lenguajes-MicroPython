@@ -3,7 +3,7 @@ const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 
 // !!! CAMBIA "COM3" por tu puerto serial !!!
-const SERIAL_PORT = 'COM15'; 
+const SERIAL_PORT = 'COM5'; 
 const BAUD_RATE = 115200;
 
 function checkAlerts(data) {
