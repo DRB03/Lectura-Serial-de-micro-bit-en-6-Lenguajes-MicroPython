@@ -9,7 +9,7 @@
 using json = nlohmann::json;
 
 // !!! CAMBIA "COM3" por tu puerto serial, PERO MANTÉN EL FORMATO !!!
-const wchar_t* SERIAL_PORT = L"\\\\.\\COM15";
+const wchar_t* SERIAL_PORT = L"\\\\.\\COM5";
 const int BAUD_RATE = CBR_115200; // Constante de Windows
 
 std::string checkAlerts(const json& data) {
