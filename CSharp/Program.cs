@@ -20,7 +20,7 @@ public class MicrobitData
 class Program
 {
     // !!! CAMBIA "COM3" por tu puerto serial !!!
-    static string SERIAL_PORT = "COM15";
+    static string SERIAL_PORT = "COM5";
     static int BAUD_RATE = 115200;
 
     static string CheckAlerts(MicrobitData data)
