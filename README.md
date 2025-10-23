@@ -25,6 +25,7 @@ El equipo de mantenimiento (los alumnos) debe **probar, comparar y depurar** lec
 * ⚙️ C++
 * 🟢 Node.js
 * 🐹 Go
+* 🦀 Rust
 
 El objetivo es validar que todos interpreten los mismos datos, detecten alertas y sean mantenibles.
 
