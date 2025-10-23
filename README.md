@@ -30,18 +30,17 @@ El objetivo es validar que todos interpreten los mismos datos, detecten alertas 
 
 ---
 
-## Tabla Comparativa de Lectores Seriales (Windows)
+## 📊 Tabla Comparativa de Lectores Seriales (6 Lenguajes)
 
-| Característica | 🐍 Python | 🟢 Node.js | 💻 C# | 🐹 Go | ⚙️ C++ |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Biblioteca Serial** | `pyserial` (externa) | `serialport` (externa) | `System.IO.Ports` (NuGet) | **`go.bug.st/serial`** (externa) | **Boost.Asio** o **Win32 API** |
-| **Instalación Serial** | `pip install pyserial` | `npm install serialport` | `dotnet add package ...` | `go get go.bug.st/serial` | Depende (Ej: `vcpkg install boost-asio`) |
-| **Biblioteca JSON** | `json` (nativa) | `JSON` (nativo) | `System.Text.Json` (nativa) | **`encoding/json`** (nativa) | **nlohmann/json** (externa) |
-| **Manejo de Lectura** | Síncrono (`ser.readline()`) | Asíncrono (eventos) | Síncrono (`_serialPort.ReadLine()`) | Síncrono (`bufio.Scanner`) | Síncrono/Asíncrono (buffer manual) |
-| **Complejidad de código** | **Baja** | Baja-Media | Media | Media | **Muy Alta** |
-| **Manejo de Errores** | `try...except` específico | Callbacks/`try...catch` | `try...catch` específico | **Manejo de `error` explícito** (Go Idiomático) | Códigos de error/Excepciones |
-| **Ejecución/Compilación** | Interpretado (Lento) | JIT (Rápido) | JIT (Rápido) | **Compilado a nativo** (Rápido) | **Compilado a nativo** (Máxima velocidad) |
----
+| Característica | 🐍 Python | 🟢 Node.js | 💻 C# | 🐹 Go | 🦀 Rust | ⚙️ C++ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Biblioteca Serial** | `pyserial` (externa) | `serialport` (externa) | `System.IO.Ports` (NuGet) | `go.bug.st/serial` (externa) | **`serialport`** (Crate externa) | Boost.Asio o Win32 API |
+| **Instalación Serial** | `pip install pyserial` | `npm install serialport` | `dotnet add package ...` | `go get go.bug.st/serial` | **`cargo add serialport`** | Depende (Ej: `vcpkg install boost-asio`) |
+| **Biblioteca JSON** | `json` (nativa) | `JSON` (nativo) | `System.Text.Json` (nativa) | `encoding/json` (nativa) | **`serde`** / **`serde_json`** (Crates externas) | nlohmann/json (externa) |
+| **Manejo de Lectura** | Síncrono (`ser.readline()`) | Asíncrono (eventos) | Síncrono (`_serialPort.ReadLine()`) | Síncrono (`bufio.Scanner`) | Síncrono (`BufReader::read_line`) | Síncrono/Asíncrono (buffer manual) |
+| **Complejidad de código** | **Baja** | Baja-Media | Media | Media | **Media-Alta** (por manejo de errores) | **Muy Alta** |
+| **Manejo de Errores** | `try...except` específico | Callbacks/`try...catch` | `try...catch` específico | Manejo de `error` explícito | **`Result<T, E>` / `match`** (Patrones de error) | Códigos de error/Excepciones |
+| **Ejecución/Compilación** | Interpretado (Lento) | JIT (Rápido) | JIT (Rápido) | Compilado a nativo (Rápido) | **Compilado a nativo** (**Máxima velocidad**) | Compilado a nativo (Máxima velocidad) |
 
 ### 1. ¿Qué lenguaje resultó más sencillo para manejar el puerto serial?
 
