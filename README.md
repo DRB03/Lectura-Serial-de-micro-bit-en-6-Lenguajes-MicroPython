@@ -31,28 +31,31 @@ El objetivo es validar que todos interpreten los mismos datos, detecten alertas 
 
 ---
 
-## 📊 Tabla Comparativa de Lectores Seriales (6 Lenguajes)
+# 📊 Análisis Comparativo Técnico Extendido de Lectores Seriales (6 Lenguajes)
 
-| Característica | 🐍 Python | 🟢 Node.js | 💻 C# | 🐹 Go | 🦀 Rust | ⚙️ C++ |
+
+| Característica Técnica | 🐍 Python | 🟢 Node.js | 💻 C# | 🐹 Go | 🦀 Rust | ⚙️ C++ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Biblioteca Serial** | `pyserial` (externa) | `serialport` (externa) | `System.IO.Ports` (NuGet) | `go.bug.st/serial` (externa) | **`serialport`** (Crate externa) | Boost.Asio o Win32 API |
-| **Instalación Serial** | `pip install pyserial` | `npm install serialport` | `dotnet add package ...` | `go get go.bug.st/serial` | **`cargo add serialport`** | Depende (Ej: `vcpkg install boost-asio`) |
-| **Biblioteca JSON** | `json` (nativa) | `JSON` (nativo) | `System.Text.Json` (nativa) | `encoding/json` (nativa) | **`serde`** / **`serde_json`** (Crates externas) | nlohmann/json (externa) |
-| **Manejo de Lectura** | Síncrono (`ser.readline()`) | Asíncrono (eventos) | Síncrono (`_serialPort.ReadLine()`) | Síncrono (`bufio.Scanner`) | Síncrono (`BufReader::read_line`) | Síncrono/Asíncrono (buffer manual) |
-| **Complejidad de código** | **Baja** | Baja-Media | Media | Media | **Media-Alta** (por manejo de errores) | **Muy Alta** |
-| **Manejo de Errores** | `try...except` específico | Callbacks/`try...catch` | `try...catch` específico | Manejo de `error` explícito | **`Result<T, E>` / `match`** (Patrones de error) | Códigos de error/Excepciones |
-| **Ejecución/Compilación** | Interpretado (Lento) | JIT (Rápido) | JIT (Rápido) | Compilado a nativo (Rápido) | **Compilado a nativo** (**Máxima velocidad**) | Compilado a nativo (Máxima velocidad) |
+| **Biblioteca Serial** | `pyserial` (externa) | `serialport` (externa) | `System.IO.Ports` (NuGet) | `go.bug.st/serial` | `serialport` (Crate) | Win32 API / Boost.Asio |
+| **Modelo de Lectura** | Síncrono (`ser.readline()`) | **Asíncrono** (Event Loop) | Síncrono (`ReadLine()`) | Síncrono (`bufio.Scanner`) | Síncrono (`BufReader::read_line`) | Síncrono/Asíncrono (Manual) |
+| **Manejo de JSON** | `json` (Nativo) | `JSON` (Nativo) | `System.Text.Json` (Nativo) | `encoding/json` (Nativo) | `serde`/`serde_json` (Crates) | nlohmann/json (Externa) |
+| **Rendimiento** | Interpretado (Lento) | JIT (Rápido) | JIT (Rápido) | **Compilado (Muy Rápido)** | **Compilado (Máx. Velocidad)** | Compilado (Máx. Velocidad) |
+| **Manejo de Errores** | `try...except` | Callbacks/Excepciones | `try...catch` (Robusto) | Manejo de `error` explícito | **`Result<T, E>` (Seguro)** | Códigos de error Win32/Excepciones |
+| **Complejidad de Código** | **Baja** | Baja-Media | Media | Media | Media-Alta | **Muy Alta** |
+| **Observaciones Técnicas** | El **más simple**. Abstracción total del SO. Ideal para **prototipado rápido** y scripts de monitoreo. La dependencia es fácil de instalar (`pip`). | Utiliza un **bucle de eventos** (non-blocking I/O), lo que lo hace muy eficiente para tareas concurridas (red y serial a la vez). Requiere un *parser* para manejar el `\n`. | **Ambiente .NET.** La clase `SerialPort` es oficial y estable, ideal para aplicaciones de escritorio o **servicios robustos en Windows**. Requiere definir un *modelo de datos* (Clase) para el JSON. | Famoso por su **concurrencia nativa** (Goroutines). El manejo de errores `if err != nil` es obligatorio, lo que garantiza un **código muy robusto**. Compila muy rápido. | **Máxima seguridad en memoria** (sin GC). El compilador obliga a gestionar todos los posibles fallos seriales y de JSON, resultando en binarios extremadamente rápidos y confiables, perfectos para *gateways*. | Mayor control sobre el *hardware*. Requiere la implementación manual de la comunicación y el buffer (`ReadFile` en Windows). La **mayor curva de aprendizaje** y el código menos portable entre sistemas operativos. |
+
+---
+
+## 🔎 Reflexión Final de la Práctica
 
 ### 1. ¿Qué lenguaje resultó más sencillo para manejar el puerto serial?
 
-Python es mas compatible para esto, ya que con una línea (pip install pyserial), ya tienes todo, con otra línea (ser.readline()), lees un dato, es súper directo y te ahorra todos los pasos de configurar detalles técnicos que C++ te obliga a hacer.
+ Python. Gracias a `pyserial`, la lectura es una sola línea de código síncrono que abstrae completamente las complejidades del sistema operativo. Es la solución más rápida para poner en marcha el lector.
 
 ### 2. ¿Qué lenguaje ofrece mejor manejo de errores?
 
-C# ya que es un lenguaje que te obliga a ser ordenado, al ser de "tipado estático" (tienes que declarar si algo es un número o un texto), el programa te dice si rompiste algo antes de que lo ejecutes y su forma de manejar excepciones (try...catch) es robusta.
+ Rust. Su sistema basado en el tipo `Result<T, E>` fuerza al desarrollador a considerar y manejar explícitamente cada posible escenario de fallo (puerto no encontrado, línea malformada, error de JSON) en tiempo de **compilación**, minimizando la posibilidad de fallos inesperados en producción.
 
 ### 3. ¿Cuál sería más adecuado para un sistema IoT en producción local?
 
-Si el sistema es un servicio que debe funcionar 24/7 en una PC con Windows y no debe fallar nunca: C# es ideal. Es robusto, rápido (por el entorno .NET) y está diseñado para hacer aplicaciones serias y estables.
-
-Si el sistema es un script que solo necesita tomar el dato, procesarlo y enviarlo rápido (sin GUI ni servicio complejo): Python es el campeón. Es rápido de escribir, fácil de mantener (porque es muy legible) y si falla, es más fácil de depurar que C++ o Node.js.
+ C# o  Go son las mejores opciones balanceadas. C# es excelente para un **servicio robusto** en Windows, aprovechando el ecosistema .NET para estabilidad y fácil depuración. Go es superior si la aplicación necesita **alta velocidad y concurrencia** (manejar muchos *threads* o conexiones) fuera del ecosistema de Microsoft.
