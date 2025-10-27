@@ -1,4 +1,4 @@
-
+# DANIEL ROMERO BRAVO
 
 # 🔧 Práctica Integral — Lectura Serial de micro:bit en 6 Lenguajes + MicroPython
 
